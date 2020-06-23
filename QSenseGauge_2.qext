@@ -1,15 +1,15 @@
 {
-    "name": "QSense Gauge V2",
-    "description": "QSense dual gauge",
-    "icon": "text icon-image-excelcio",
+    "name": "FS-SOLIDGAUGE",
+    "description": "Qlik Sense Solid Gauge",
+    "icon": "",
     "type": "visualization",
-    "version": "1.0.2",
-    "author": "Excelcio",
-    "homepage": "http://excelcio.com/",
+    "version": "1.0",
+    "author": "FERNANDO SOUZA",
+    "homepage": "",
     "keywords": "qlik-sense, visualization",
-    "preview": "qsense_gauge.png",
+    "preview": "",
     "license": "",
-    "repository": "https://github.com/amartinez35/QSenseGauge",
+    "repository": "https://github.com/fernandohHenri/FS-SOLIDGAUGE",
     "dependencies": {
         "qlik-sense": "Feb 2018"
     }
