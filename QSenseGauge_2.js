@@ -6,14 +6,13 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
         //palette de sélection couleur 1
         var ColorArc1 = {
             ref: "Arc1",
-            type: "string",
-            //component: "color-picker",
-            component: "expression",
-            label: "First arc",
-            // defaultValue: {
-            //     index: 3,
-            //     color: "#545352"
-            // },
+            type: "object",
+            component: "color-picker",
+            label: "Arc",
+            defaultValue: {
+                index: 3,
+                color: "#000000"
+            },
             show: function(data) {
                 return data.qHyperCubeDef.qMeasures.length >= 1;
             }
