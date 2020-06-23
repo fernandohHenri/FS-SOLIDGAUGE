@@ -7,7 +7,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
         _margin = {
             top: 0,
             right: 0,
-            bottom: 30,
+            bottom: 0,
             left: 0
         },
         __width = width,
@@ -32,8 +32,8 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
     var _currentArc = 0,
         _currentArc2 = 0,
         _currentValue = 0,
-        _angle = 180,
-        _radians = 180;
+        _angle = 1,
+        _radians = 1;
 
     var _arc = d3.svg.arc()
         .startAngle(0* ((Math.PI )/ _radians)); //just radians
@@ -230,9 +230,9 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
         _height = _width;
         _fontSize = _width * .25;
         _arc.outerRadius(_width / 2);
-        _arc.innerRadius(_width / 2 * .55);
+        _arc.innerRadius(_width / 2 * .65);
         _arc2.outerRadius(_width / 2 * .55);
-        _arc2.innerRadius(_width / 2 * .55 - (_width / 2 * .15));
+        _arc2.innerRadius(_width / 2 * .100 - (_width / 2 * .55));
     }
 
 
