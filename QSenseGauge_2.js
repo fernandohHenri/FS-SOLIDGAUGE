@@ -6,13 +6,11 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
         //palette de sélection couleur 1
         var ColorArc1 = {
             ref: "Arc1",
-            type: "object",
-            component: "color-picker",
-            label: "Arc",
-            defaultValue: {
-                index: 3,
-                color: "#000000"
-            },
+            type: "string",
+            //component:"text",
+            expression: "optional",
+            label: "Cor por expressão",
+            defaultValue:  "#545352",
             show: function(data) {
                 return data.qHyperCubeDef.qMeasures.length >= 1;
             }
@@ -35,7 +33,7 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
         var limite1 = {
             ref: "limite1",
             type: "integer",
-            label: "Limit arc 1",
+            label: "Limite do Arco",
             expression: "always",
             defaultValue: 100,
             show: function(data) {
@@ -64,7 +62,7 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
         var affichageMesure1 = {
             type: "boolean",
             component: "switch",
-            label: "Display measure 1",
+            label: "Mostrar Label",
             ref: "affichage1",
             options: [{
                 value: true,
@@ -175,8 +173,8 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
 
             //affichage de l'objet
             paint: function($element, layout) {
-                console.log('layout ', layout)
-                console.log('element ', $element)
+                // console.log('layout ', layout)
+                // console.log('element ', $element)
                     //Taille de l'objet
                 var width = $element.width();
                 var height = $element.height();
@@ -221,8 +219,10 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
 
 
                 //couleur arc 1 et 2
-                var colorAcr1 = layout.Arc1.color;
+                var colorAcr1 = layout.Arc1;
                 var colorAcr2 = layout.Arc2.color;
+
+                // console.log('layout color',layout.Arc1)
 
                 var iconGauge = layout.iconGauge;
                 //Création de la jauge
@@ -236,9 +236,9 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                     .render();
 
                 return qlik.Promise.resolve();
-                console.log(layout)
-            }
 
+            }
+            
         };
 
     });

@@ -7,7 +7,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
         _margin = {
             top: 0,
             right: 0,
-            bottom: 0,
+            bottom: 1,
             left: 0
         },
         __width = width,
@@ -76,7 +76,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
                 .attr("height", _height)
                 .attr("y", 0)
                 .attr("x", 0);
-            // console.log('svg', _width,+' '+ _height + background.attr .att())
+            
             background.append("path")
                 .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")rotate(-90)")
                 .attr("d", _arc)
@@ -158,8 +158,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
                 var ratio = (_value - _minValue) / (_maxValue - _minValue);
                 var endAngle = Math.min(_angle * ratio, _angle);
                 endAngle =  endAngle * Math.PI  / _radians;
-                console.log('calculo ', endAngle * Math.PI  / _radians)
-
+              
                 path.datum(endAngle);
                 path.transition().duration(_duration)
                     .attrTween("d", arcTween);
