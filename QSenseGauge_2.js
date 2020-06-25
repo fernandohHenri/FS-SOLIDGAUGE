@@ -15,6 +15,19 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                 return data.qHyperCubeDef.qMeasures.length >= 1;
             }
         };
+        var ColorArcLabel = {
+            ref: "CorLabel",
+            type: "string",
+            component: "color-picker",
+            label: "Cor Label",
+            defaultValue: {
+                index: 2,
+                color: "#545352"
+            },
+            show: function(data) {
+                return data.qHyperCubeDef.qMeasures.length >= 1;
+            }
+        };
         //palette de sélection couleur 2
         var ColorArc2 = {
             ref: "Arc2",
@@ -145,6 +158,7 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                                 label: "Display",
                                 items: {
                                     Colors1: ColorArc1,
+                                    ColorsLabel: ColorArcLabel,
                                     Colors2: ColorArc2,
                                     affichage1: affichageMesure1,
                                     affichage2: affichageMesure2,
@@ -220,13 +234,14 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
 
                 //couleur arc 1 et 2
                 var colorAcr1 = layout.Arc1;
+                var colorAcrLabel = layout.CorLabel.color
                 var colorAcr2 = layout.Arc2.color;
 
-                // console.log('layout color',layout.Arc1)
+                 console.log('layout color',layout.Arc1 +' label '+ layout.CorLabel)
 
                 var iconGauge = layout.iconGauge;
                 //Création de la jauge
-                var rad1 = radialProgress(div, width, height, [colorAcr1, colorAcr2], iconGauge, [layout.affichage1, layout.affichage2])
+                var rad1 = radialProgress(div, width, height, [colorAcr1, colorAcr2,colorAcrLabel], iconGauge, [layout.affichage1, layout.affichage2])
                     .value(value)
                     .value2(value2)
                     .label(measureName)
