@@ -28,6 +28,62 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                 return data.qHyperCubeDef.qMeasures.length >= 1;
             }
         };
+        var OpacidadeArcQlik = {
+        ref: "OpacidadeArcos",
+        type: "number",
+        component: "slider",
+        label: "Opacidade Backgroung",
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.5,
+        show: function(data) {
+            return data.qHyperCubeDef.qMeasures.length >= 1;
+            }
+        };
+
+        var LarguraArcoQlik = {
+            ref: "LarguraArco",
+            type: "integer",
+            component: "slider",
+            label: "Largura do Arco",
+            min: 0.30,
+            max: 0.99,
+            step: 0.1,
+            defaultValue: 0.65,
+            show: function(data) {
+                return data.qHyperCubeDef.qMeasures.length >= 1;
+                }
+            };
+
+        var TamFonteArcoQlik = {
+            ref: "TamFonteArco",
+            type: "integer",
+            component: "slider",
+            label: "Tamanho da Fonte",
+            min: 0.10,
+            max: 0.45,
+            step: 0.05,
+            defaultValue: 0.25,
+            show: function(data) {
+                return data.qHyperCubeDef.qMeasures.length >= 1;
+                }
+            };
+
+        var ColorArcBack = {
+            ref: "CorBack",
+            type: "string",
+            component: "color-picker",
+            label: "Cor background",
+            defaultValue: {
+                index: 4,
+                color: "#545352"
+            },
+            show: function(data) {
+                return data.qHyperCubeDef.qMeasures.length >= 1;
+            }
+        };
+
         //palette de sélection couleur 2
         var ColorArc2 = {
             ref: "Arc2",
@@ -159,16 +215,20 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                                 items: {
                                     Colors1: ColorArc1,
                                     ColorsLabel: ColorArcLabel,
+                                    Opacidade22: OpacidadeArcQlik,
+                                    CorBackGround: ColorArcBack,
+                                    LarguraArco22: LarguraArcoQlik,
+                                    TamFonteArco22: TamFonteArcoQlik,
                                     Colors2: ColorArc2,
                                     affichage1: affichageMesure1,
                                     affichage2: affichageMesure2,
-                                    // MediaGauge: imageGauge,
+                                   // MediaGauge: imageGauge,
                                 }
                             },
                             Limite: {
                                 ref: "limite",
                                 type: "items",
-                                label: "Limits",
+                                label: "Limite Arco",
                                 items: {
                                     limite1: limite1,
                                     limite2: limite2
@@ -187,8 +247,6 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
 
             //affichage de l'objet
             paint: function($element, layout) {
-                // console.log('layout ', layout)
-                // console.log('element ', $element)
                     //Taille de l'objet
                 var width = $element.width();
                 var height = $element.height();
@@ -235,13 +293,17 @@ define(["./radialProgress", "./d3.min", "css!./QSenseGauge_2.css", "qlik"],
                 //couleur arc 1 et 2
                 var colorAcr1 = layout.Arc1;
                 var colorAcrLabel = layout.CorLabel.color
+                var OpacidadeAcrOpa = layout.OpacidadeArcos
+                var LaguraAcrOpa    = layout.LarguraArco
+                var CorArcBack = layout.CorBack.color
+                var TamanhoFonte = layout.TamFonteArco
                 var colorAcr2 = layout.Arc2.color;
 
-                 console.log('layout color',layout.Arc1 +' label '+ layout.CorLabel)
+                 console.log('Opacidade F ',layout.LarguraArco)
 
                 var iconGauge = layout.iconGauge;
                 //Création de la jauge
-                var rad1 = radialProgress(div, width, height, [colorAcr1, colorAcr2,colorAcrLabel], iconGauge, [layout.affichage1, layout.affichage2])
+                var rad1 = radialProgress(div, width, height,OpacidadeAcrOpa,LaguraAcrOpa,TamanhoFonte,[colorAcr1, colorAcr2,colorAcrLabel,CorArcBack], iconGauge, [layout.affichage1, layout.affichage2])
                     .value(value)
                     .value2(value2)
                     .label(measureName)

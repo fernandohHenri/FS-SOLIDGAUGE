@@ -1,5 +1,8 @@
 
-function radialProgress(parent, width, height, colors, image, labelOK) {
+function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteArco,colors, image, labelOK) {
+    var TamFonteArco = TamFonteArco;
+    var LarguraArco = LarguraArco;
+    var OpacidadeArc = OpacidadeArc;
     var colors = colors;
     var _data = null,
         _duration = 1000,
@@ -7,7 +10,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
         _margin = {
             top: 0,
             right: 0,
-            bottom: 1,
+            bottom: 0,
             left: 0
         },
         __width = width,
@@ -80,7 +83,8 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
             background.append("path")
                 .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")rotate(-90)")
                 .attr("d", _arc)
-                .attr("opacity", 1)
+                .attr("opacity", OpacidadeArc)
+                .attr("fill", colors[3])
                 .attr("y", 10)
                 .attr("x", 10);
             background.append("path")
@@ -91,7 +95,7 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
                 .attr("x", 0);
 
             var g = svg.select("g")
-                .attr("transform", "translate(" + 0/*_margin.left*/ + "," +0/* _margin.top*/ + ")");
+                .attr("transform", "translate(" + _margin.left + "," + _margin.top + ")");
 
             _arc.endAngle(_currentArc);
             enter.append("g").attr("class", "arcs");
@@ -227,10 +231,10 @@ function radialProgress(parent, width, height, colors, image, labelOK) {
     function measure() {
         _width = _diameter - _margin.right - _margin.left - _margin.top - _margin.bottom;
         _height = _width;
-        _fontSize = _width * .25;
+        _fontSize = _width * TamFonteArco;
         _arc.outerRadius(_width / 2);
-        _arc.innerRadius(_width / 2 * .65);
-        _arc2.outerRadius(_width / 2 * .55);
+        _arc.innerRadius(_width / 2 * LarguraArco);
+        _arc2.outerRadius(_width / 2 * .40);
         _arc2.innerRadius(_width / 2 * .100 - (_width / 2 * .55));
     }
 

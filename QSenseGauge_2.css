@@ -32,8 +32,9 @@
     fill: #e1e1e1;
 }
 
-.qv-object-QSenseGauge_2 .component .label {
+.qv-object-QSenseGauge_2 .component .label .labels {
     text-anchor: middle;
+    font-weight: bold;
 }
 
 .qv-object-QSenseGauge_2 .arc {
