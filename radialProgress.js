@@ -81,7 +81,7 @@ function radialProgress(parent, width, height, OpacidadeArc, LarguraArco, TamFon
                 .attr("x", 0);
 
             background.append("path")
-                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ")rotate(-90)")
+                .attr("transform", "translate(" + __width / 2 + "," + (__height / 2) * 1.25 + ")rotate(-90)")
                 .attr("d", _arc)
                 .attr("opacity", OpacidadeArc)
                 .attr("fill", colors[3])
@@ -103,7 +103,7 @@ function radialProgress(parent, width, height, OpacidadeArc, LarguraArco, TamFon
             path.enter().append("path")
                 .attr("class", "arc")
                 .attr("fill", colors[0])
-                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ") rotate(-90)")
+                .attr("transform", "translate(" + __width / 2 + "," + (__height / 2) * 1.25 + ") rotate(-90)")
                 .attr("d", _arc);
 
             //Another path in case we exceed 100%
@@ -111,7 +111,7 @@ function radialProgress(parent, width, height, OpacidadeArc, LarguraArco, TamFon
             path2.enter().append("path")
                 .attr("class", "arc2")
                 .attr("fill", colors[1])
-                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ")")
+                .attr("transform", "translate(" + __width / 2 + "," + (__height / 2) * 1.25 + ")")
                 .attr("d", _arc2);
 
             enter.append("g").attr("class", "labels");
@@ -128,7 +128,7 @@ function radialProgress(parent, width, height, OpacidadeArc, LarguraArco, TamFon
             if (labelOK[0]) {
                 label.enter().append("text")
                     .attr("class", "label")
-                    .attr("y", _height / 1.6)
+                    .attr("y", __height / 1.6)
                     .attr("x", __width / 2)
                     .attr("width", _width)
                     .attr("fill", colors[2])
