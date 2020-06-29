@@ -1,5 +1,4 @@
-
-function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteArco,colors, image, labelOK) {
+function radialProgress(parent, width, height, OpacidadeArc, LarguraArco, TamFonteArco, colors, image, labelOK) {
     var TamFonteArco = TamFonteArco;
     var LarguraArco = LarguraArco;
     var OpacidadeArc = OpacidadeArc;
@@ -16,8 +15,8 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
         __width = width,
         __height = height,
         _diameter = Math.min(width, height), //150,
-        
-        
+
+
         _minDiam = _diameter,
         _label = "",
         _label2 = "",
@@ -37,12 +36,13 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
         _currentValue = 0,
         _angle = 1,
         _radians = 1;
+    var myScale = d3.scale.linear().domain([0, 100]).range([0, 2 * Math.PI]);
 
     var _arc = d3.svg.arc()
-        .startAngle(0* ((Math.PI )/ _radians)); //just radians
+        .startAngle(myScale(0)); //just radians
     //.startAngle(0 * (Math.PI / 180))
     var _arc2 = d3.svg.arc()
-        .startAngle(0 * ((Math.PI ) / _radians))
+        .startAngle(myScale(0))
         //.startAngle(45 * ((Math.PI /2) / 180))
         .endAngle(0); //just radians
 
@@ -69,8 +69,8 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
             //.on("click",onMouseClick);
 
 
-            _arc.endAngle(_angle * ((Math.PI ) / _radians))
-            _arc2.endAngle(_angle * ((Math.PI ) / _radians))
+            _arc.endAngle(_angle * ((Math.PI) / _radians))
+            _arc2.endAngle(_angle * ((Math.PI) / _radians))
 
 
             background.append("rect")
@@ -79,20 +79,20 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
                 .attr("height", _height)
                 .attr("y", 0)
                 .attr("x", 0);
-            
+
             background.append("path")
-                .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")rotate(-90)")
+                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ")rotate(-90)")
                 .attr("d", _arc)
                 .attr("opacity", OpacidadeArc)
                 .attr("fill", colors[3])
                 .attr("y", 10)
                 .attr("x", 10);
-            background.append("path")
-                .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")rotate(-90)")
-                .attr("d", _arc2)
-                .attr("opacity", 0)
-                .attr("y", 0)
-                .attr("x", 0);
+            // background.append("path")
+            //     .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")rotate(-90)")
+            //     .attr("d", _arc2)
+            //     .attr("opacity", 0)
+            //     .attr("y", 0)
+            //     .attr("x", 0);
 
             var g = svg.select("g")
                 .attr("transform", "translate(" + _margin.left + "," + _margin.top + ")");
@@ -103,7 +103,7 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
             path.enter().append("path")
                 .attr("class", "arc")
                 .attr("fill", colors[0])
-                .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ") rotate(-90)")
+                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ") rotate(-90)")
                 .attr("d", _arc);
 
             //Another path in case we exceed 100%
@@ -111,25 +111,25 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
             path2.enter().append("path")
                 .attr("class", "arc2")
                 .attr("fill", colors[1])
-                .attr("transform", "translate(" + _width / 2 + "," + _width / 2 + ")")
+                .attr("transform", "translate(" + __width / 2 + "," + (_height / 2) * 1.25 + ")")
                 .attr("d", _arc2);
 
             enter.append("g").attr("class", "labels");
             var label = svg.select(".labels").selectAll(".label").data(data);
-            label.enter().append("image")
-                .attr("class", "label")
-                .attr("y", _height / 3)
-                .attr("x", _height / 2.7)
-                .attr("width", _width / 9)
-                .attr("height", _height / 4)
-                .attr("xlink:href", image);
+            // label.enter().append("image")
+            //     .attr("class", "label")
+            //     .attr("y", _height / 3)
+            //     .attr("x", _height / 2.7)
+            //     .attr("width", _width / 9)
+            //     .attr("height", _height / 4)
+            //     .attr("xlink:href", image);
 
 
             if (labelOK[0]) {
                 label.enter().append("text")
                     .attr("class", "label")
-                    .attr("y", _height / 2)
-                    .attr("x", _height / 2)
+                    .attr("y", _height / 1.6)
+                    .attr("x", __width / 2)
                     .attr("width", _width)
                     .attr("fill", colors[2])
                     .text(function(d) {
@@ -161,23 +161,23 @@ function radialProgress(parent, width, height,OpacidadeArc,LarguraArco,TamFonteA
 
                 var ratio = (_value - _minValue) / (_maxValue - _minValue);
                 var endAngle = Math.min(_angle * ratio, _angle);
-                endAngle =  endAngle * Math.PI  / _radians;
-              
+                endAngle = endAngle * Math.PI / _radians;
+
                 path.datum(endAngle);
                 path.transition().duration(_duration)
                     .attrTween("d", arcTween);
 
                 if (_value2 !== 0) {
                     ratio = (_value2 - _minValue) / (_maxValue2 - _minValue);
-                    endAngle = Math.min( _angle * ratio, _angle);
-                    endAngle =  endAngle * Math.PI  / _radians;
+                    endAngle = Math.min(_angle * ratio, _angle);
+                    endAngle = endAngle * Math.PI / _radians;
                     path2.datum(endAngle);
                     path2.transition().duration(_duration)
                         .attrTween("d", arcTween2);
 
                 } else if (ratio > 1) {
 
-                    path2.datum(Math.min(_angle * (ratio - 1), _angle) * Math.PI  / _radians);
+                    path2.datum(Math.min(_angle * (ratio - 1), _angle) * Math.PI / _radians);
                     path2.transition().delay(_duration).duration(_duration)
                         .attrTween("d", arcTween2);
 
